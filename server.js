@@ -12,18 +12,22 @@ const app = express();
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.get('/', (req, res)=> {
-    //res.send('<h1>Hello World</h1>');
-    //res.send({ message: 'Hello World' });
-
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-})
+// setup a static folder the only diff you will write http://localhost:8000/about.html instead of about
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/about', (req, res)=> {
-    //res.send('<h2>About</h2>');
+// app.get('/', (req, res)=> {
+//     //res.send('<h1>Hello World</h1>');
+//     //res.send({ message: 'Hello World' });
 
-    res.sendFile(path.join(__dirname, 'public', 'about.html'))
-})
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// })
+
+
+// app.get('/about', (req, res)=> {
+//     //res.send('<h2>About</h2>');
+
+//     res.sendFile(path.join(__dirname, 'public', 'about.html'))
+// })
 
 app.listen(PORT, ()=> console.log(`App running on port ${PORT}`))
