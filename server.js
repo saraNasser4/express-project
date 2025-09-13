@@ -11,11 +11,18 @@ const app = express();
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+let posts = [
+    { 'id': 1, 'title': 'Post 1' },
+    { 'id': 2, 'title': 'Post 2' },
+    { 'id': 3, 'title': 'Post 3' },
+];
 
 // setup a static folder the only diff you will write http://localhost:8000/about.html instead of about
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.get('/api/posts', (req, res)=> {
+    res.json(posts);
+})
 // app.get('/', (req, res)=> {
 //     //res.send('<h1>Hello World</h1>');
 //     //res.send({ message: 'Hello World' });
