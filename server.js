@@ -11,4 +11,8 @@ app.get('/', (req, res)=> {
     //res.send({ message: 'Hello World' });
 })
 
+app.get('/about', (req, res)=> {
+    res.send('<h2>About</h2>')
+})
+
 app.listen(PORT, ()=> console.log(`App running on port ${PORT}`))
