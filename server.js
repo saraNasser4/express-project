@@ -19,15 +19,20 @@ let posts = [
 // setup a static folder the only diff you will write http://localhost:8000/about.html instead of about
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.get('/api/posts', (req, res)=> {
-//     res.json(posts);
-// })
+// http://localhost:8000/api/posts?limit=1
+app.get('/api/posts', (req, res)=> {
+    const limit = parseInt(req.query.limit);
+    if (!isNaN(limit) && limit > 0) {
+        res.json(posts.slice(0, limit));
+    } else {
+        res.json(posts);
+    }
+})
 
 // get a single post
 app.get('/api/posts/:id', (req, res)=> {
     const id = parseInt(req.params.id);
     const post = posts.filter((post)=> post.id === id)
-    console.log(id)
     res.json(post);
 })
 // app.get('/', (req, res)=> {
