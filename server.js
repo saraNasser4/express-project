@@ -23,17 +23,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/api/posts', (req, res)=> {
     const limit = parseInt(req.query.limit);
     if (!isNaN(limit) && limit > 0) {
-        res.json(posts.slice(0, limit));
-    } else {
-        res.json(posts);
+        return res.status(200).json(posts.slice(0, limit));
     }
+    res.status(200).json(posts);
 })
 
 // get a single post
 app.get('/api/posts/:id', (req, res)=> {
     const id = parseInt(req.params.id);
-    const post = posts.filter((post)=> post.id === id)
-    res.json(post);
+    const post = posts.find((post)=> post.id === id);
+    
+    if (!post) {
+        return res.status(404).json({ massage: 'Post Not Found' });
+    }
+    res.status(200).json(post);
 })
 // app.get('/', (req, res)=> {
 //     //res.send('<h1>Hello World</h1>');
