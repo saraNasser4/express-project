@@ -13,6 +13,10 @@ const __dirname = path.dirname(__filename);
 // setup a static folder the only diff you will write http://localhost:8000/about.html instead of about
 app.use(express.static(path.join(__dirname, 'public')));
 
+// body parser
+app.use(express.json()); //POST in body row 
+app.use(express.urlencoded({ extended: false })); //POST www-form-urlencoded
+
 // app.get('/', (req, res)=> {
     //     //res.send('<h1>Hello World</h1>');
     //     //res.send({ message: 'Hello World' });
