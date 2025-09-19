@@ -1,7 +1,8 @@
 import express from 'express';
 import path from 'path';
 import url from 'url';
-import posts from './routes/posts.js'
+import posts from './routes/posts.js';
+import logger from './middleware/logger.js';
 
 
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,8 @@ app.use(express.urlencoded({ extended: false })); //POST www-form-urlencoded
 
 //     res.sendFile(path.join(__dirname, 'public', 'about.html'))
 // })
+// logger middleware
+app.use(logger);
 
 // Routes
 app.use('/api/posts', posts);
