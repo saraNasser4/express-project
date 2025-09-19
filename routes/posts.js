@@ -39,7 +39,7 @@ router.post('/', (req, res)=> {
     posts.push(newPost);
 
     res.status(201).json(posts)
-})
+});
 
 // PUT a post
 router.put('/:id', (req, res)=> {
@@ -51,6 +51,17 @@ router.put('/:id', (req, res)=> {
     post.title = req.body.title;
 
     res.status(200).json(posts);
+});
+
+// DELETE a post
+router.delete('/:id', (req, res)=> {
+    const id = parseInt(req.params.id);
+    const post = posts.find(post => post.id === id);
+
+    if(!post) return res.status(404).json({ massage: 'Post Not Found' });
+
+    posts = posts.filter(post => post.id != id);
+    res.status(200).json(posts)
 })
 
 export default router;
