@@ -34,7 +34,7 @@ router.get('/:id', (req, res, next)=> {
 router.post('/', (req, res, next)=> {
     const newPost = {
         id: posts.length + 1,
-        title: req.body.title,
+        title: req.body?.title || req.query.title,
     }
 
     if (!newPost.title) {
@@ -59,7 +59,7 @@ router.put('/:id', (req, res, next)=> {
         return next(err);
     } 
 
-    post.title = req.body.title;
+    post.title = req.body?.title || req.query.title;
 
     res.status(200).json(posts);
 });
