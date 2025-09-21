@@ -3,6 +3,7 @@ import path from 'path';
 import url from 'url';
 import posts from './routes/posts.js';
 import logger from './middleware/logger.js';
+import errorHandler from './middleware/error.js';
 
 
 const PORT = process.env.PORT || 3000;
@@ -34,7 +35,17 @@ app.use(express.urlencoded({ extended: false })); //POST www-form-urlencoded
 // logger middleware
 app.use(logger);
 
+
 // Routes
 app.use('/api/posts', posts);
+
+// Not Found route 
+app.use((req, res, next)=> {
+    const error = new Error('Route Not Found');
+    error.status =  404;
+    next(error);
+})
+// Error Handler
+app.use(errorHandler);
 
 app.listen(PORT, ()=> console.log(`App running on port ${PORT}`))

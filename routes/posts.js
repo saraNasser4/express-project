@@ -18,35 +18,46 @@ router.get('/', (req, res)=> {
 });
 
 // get a single post
-router.get('/:id', (req, res)=> {
+router.get('/:id', (req, res, next)=> {
     const id = parseInt(req.params.id);
     const post = posts.find((post)=> post.id === id);
     
     if (!post) {
-        return res.status(404).json({ massage: 'Post Not Found' });
+        const error = new Error(`Post Number ${id} Not Found`);
+        error.status = 404;
+        return next(error);
     }
     res.status(200).json(post);
 });
 
 // Create a new post
-router.post('/', (req, res)=> {
+router.post('/', (req, res, next)=> {
     const newPost = {
         id: posts.length + 1,
         title: req.body.title,
     }
 
-    if (!newPost.title) return res.status(400).json({ massage: 'Please include a title' });
+    if (!newPost.title) {
+        const err = new Error('Please include a title');
+        err.status = 400;
+        return next(err);
+    };
+
     posts.push(newPost);
 
     res.status(201).json(posts)
 });
 
 // PUT a post
-router.put('/:id', (req, res)=> {
+router.put('/:id', (req, res, next)=> {
     const id = parseInt(req.params.id);
     const post = posts.find(post => post.id === id);
 
-    if(!post) return res.status(404).json({ massage: 'Post not Found' });
+    if(!post) {
+        const err = new Error('Post not Found to be Updated');
+        err.status = 404;
+        return next(err);
+    } 
 
     post.title = req.body.title;
 
@@ -54,12 +65,15 @@ router.put('/:id', (req, res)=> {
 });
 
 // DELETE a post
-router.delete('/:id', (req, res)=> {
+router.delete('/:id', (req, res, next)=> {
     const id = parseInt(req.params.id);
     const post = posts.find(post => post.id === id);
 
-    if(!post) return res.status(404).json({ massage: 'Post Not Found' });
-
+    if(!post) {
+        const err = new Error('Post not Found');
+        err.status = 404;
+        return next(err);
+    } 
     posts = posts.filter(post => post.id != id);
     res.status(200).json(posts)
 })
