@@ -3,19 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Posts</title>
 </head>
-<body>
-    <h1>Posts</h1>
-
-    <form id="add-post-form">
-        <label for="title">Title: </label><br/>
-        <input type="text" id="title" name="title" /><br/>
-        <button type="submit">Add Post</button>
-    </form>
-
-    <button id="get-posts-btn">Get Posts</button>
-    <div id="output"></div>
+<body class="flex h-screen item-center justify-center bg-[#4267EB]">
+    <div class="relative max-w-[500px] w-full my-40 border border-gray-300 rounded-2xl px-5 py-10 bg-gray-300">
+        <h1 class="text-4xl font-bold mb-10">Posts</h1>
+    
+        <form id="add-post-form">
+            <div class="flex justify-evenly my-5">
+                <label for="title" class="text-2xl font-semibold">Title: </label>
+                <input required type="text" id="title" name="title" class="border-b border-[#4267EB] outline-none px-10 text-xl text-gray-800"/>
+            </div>
+            <button type="submit" class="mx-auto w-full my-6 text-gray-300">
+                <span class="bg-[#4267EB] px-6 py-2 rounded-xl font-semibold text-[17px] hover:cursor-pointer">Add Post</span>
+            </button>
+        </form>
+    
+        <button id="get-posts-btn" class="w-full bg-[#4267EB] py-2 rounded-2xl text-gray-300 my-6 cursor-pointer font-semibold">Get All Posts</button>
+        <!-- <div id="output" class="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 bg-gray-200 max-w-3/4 w-full px-3 py-8 rounded-xl"></div>
+        <span class="relative top-3/4 z-[100]">X</span> -->
+          <!-- Popup -->
+        <div id="popup" class=" fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+            <div class="bg-gray-200 max-w-[75%] w-full px-6 py-8 rounded-xl relative">
+                <span id="closeBtn" class="absolute top-2 right-4 text-xl font-bold cursor-pointer hover:text-[#4267EB]">X</span>
+                <p class="text-center" id="output"></p>
+            </div>
+        </div>
+    </div>
 
     <script src="./js/main.js"></script>
 </body>

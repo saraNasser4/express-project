@@ -49,7 +49,9 @@ async function addPost(e) {
     } catch (err) {
         console.error('Error adding post: ', err)
     }
-}
+};
+
+
 // Event listeners
 button.addEventListener('click', showPosts);
 form.addEventListener('submit', addPost);
