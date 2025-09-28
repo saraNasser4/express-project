@@ -1,6 +1,9 @@
 const output = document.querySelector('#output');
 const button = document.querySelector('#get-posts-btn');
 const form = document.querySelector('#add-post-form');
+const closeBtn = document.querySelector('#closeBtn');
+const popupEl = document.querySelector('#popup');
+const btns = document.getElementsByTagName('button');
 
 
 // Get and show posts 
@@ -11,9 +14,10 @@ async function  showPosts() {
     
         const posts = await res.json();
         output.innerHTML = '';
+        popupEl.classList.remove('hidden');
     
         posts.forEach(post => {
-            const postEl = document.createElement('div');
+            const postEl = document.createElement('p');
             postEl.textContent = post.title;
             output.appendChild(postEl);
         });
@@ -48,10 +52,13 @@ async function addPost(e) {
         showPosts();
     } catch (err) {
         console.error('Error adding post: ', err)
-    }
+    } 
 };
 
 
 // Event listeners
 button.addEventListener('click', showPosts);
 form.addEventListener('submit', addPost);
+
+closeBtn.addEventListener("click", ()=> popupEl.classList.add("hidden"))
+btns.addEventListener("click", ()=> popupEl.classList.remove("hidden"))
